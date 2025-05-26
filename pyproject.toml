@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "hello-langgraph"
+version = "0.1.0"
+description = "A test bed for LangGraph"
+authors = ["Sumit Sahoo <sumitsahoo1988@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+langgraph = "^0.4.7"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

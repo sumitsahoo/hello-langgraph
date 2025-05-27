@@ -5,11 +5,15 @@ description = "A test bed for LangGraph"
 authors = ["Sumit Sahoo <sumitsahoo1988@gmail.com>"]
 license = "MIT"
 readme = "README.md"
+package-mode = false
 
 [tool.poetry.dependencies]
 python = "^3.11"
 langgraph = "^0.4.7"
 
+
+[tool.poetry.group.dev.dependencies]
+ipykernel = "^6.29.5"
 
 [build-system]
 requires = ["poetry-core"]

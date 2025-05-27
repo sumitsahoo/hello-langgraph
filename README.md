@@ -49,6 +49,10 @@ poetry shell
    ```
 2. Open the desired notebook and run the cells.
 
+## 🙏 Attribution & Inspiration
+
+This project was inspired by the YouTube video: [LangGraph: Build State Machines for LLM Agents](https://www.youtube.com/watch?v=jGg_1h0qzaM).
+
 ## 📄 License
 
 This project is licensed under the MIT License.

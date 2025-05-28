@@ -10,11 +10,21 @@ package-mode = false
 [tool.poetry.dependencies]
 python = "^3.11"
 langgraph = "^0.4.7"
-
+dotenv = "^0.9.9"
+langchain-openai = "^0.3.18"
 
 [tool.poetry.group.dev.dependencies]
 ipykernel = "^6.29.5"
+pyrefly = "^0.17.0"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.pyrefly]
+python_interpreter = "./.venv/bin/python"
+project_includes = ["**/*"]
+project_excludes = [
+    "**/.[!/.]*",
+    "**/*venv/**/*",
+]

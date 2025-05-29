@@ -88,16 +88,16 @@ def should_continue(state: AgentState):
 
 
 graph = StateGraph(AgentState)
-graph.add_node("our_agent", model_call)
+graph.add_node("weather_agent", model_call)
 
 
 tool_node = ToolNode(tools=tools)
 graph.add_node("tools", tool_node)
 
-graph.set_entry_point("our_agent")
+graph.set_entry_point("weather_agent")
 
 graph.add_conditional_edges(
-    "our_agent",
+    "weather_agent",
     should_continue,
     {
         "continue": "tools",
@@ -105,9 +105,14 @@ graph.add_conditional_edges(
     },
 )
 
-graph.add_edge("tools", "our_agent")
+graph.add_edge("tools", "weather_agent")
 
 app = graph.compile()
+
+# Save the graph image to a file in the project root
+with open("graph.png", "wb") as f:
+    f.write(app.get_graph().draw_mermaid_png())
+print("Graph image saved as graph.png in the project root.")
 
 
 def print_stream(stream):

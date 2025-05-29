@@ -16,6 +16,7 @@ from langgraph.graph import StateGraph, END
 from langgraph.prebuilt import ToolNode
 import os
 import requests
+from requests import Session, exceptions
 
 load_dotenv()
 
@@ -25,16 +26,20 @@ class AgentState(TypedDict):
 
 
 @tool
-def get_weather(city: str):
+def get_weather(city: str) -> str:
     """Fetch the current weather for a given city using OpenWeatherMap API."""
     api_key = os.getenv("OPENWEATHER_API_KEY")
     if not api_key:
         return "OpenWeatherMap API key not found."
     url = f"https://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}&units=metric"
+    session = Session()
     try:
-        response = requests.get(url, timeout=10)
+        response = session.get(url, timeout=10)
         response.raise_for_status()
-        data = response.json()
+        try:
+            data = response.json()
+        except ValueError:
+            return "Error: Invalid JSON response from weather API."
         if data.get("cod") != 200:
             return f"Error: {data.get('message', 'Unable to fetch weather.')}"
         weather = data["weather"][0]["description"].capitalize()
@@ -47,6 +52,12 @@ def get_weather(city: str):
             f"Temperature: {temp}°C (feels like {feels_like}°C). "
             f"Humidity: {humidity}%. Wind speed: {wind_speed} m/s."
         )
+    except exceptions.Timeout:
+        return "Failed to fetch weather: Request timed out."
+    except exceptions.HTTPError as e:
+        return f"Failed to fetch weather: HTTP error {e.response.status_code}."
+    except exceptions.RequestException as e:
+        return f"Failed to fetch weather: {e}"
     except Exception as e:
         return f"Failed to fetch weather: {e}"
 

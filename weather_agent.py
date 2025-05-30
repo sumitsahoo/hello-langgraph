@@ -124,12 +124,39 @@ def print_stream(stream):
             message.pretty_print()
 
 
-inputs = {
-    "messages": [
-        (
-            "user",
-            "How is the weather in Pune, India?",
-        )
-    ]
-}
-print_stream(app.stream(inputs, stream_mode="values"))
+# --- Chat loop implementation ---
+
+
+def chat():
+    print("Type 'exit' to quit.")
+    messages = []
+    while True:
+        user_input = input("You: ")
+        if user_input.strip().lower() == "exit":
+            print("Exiting chat.")
+            break
+        messages.append(("user", user_input))
+        stream = app.stream({"messages": messages}, stream_mode="values")
+        last_message = None
+        for s in stream:
+            message = s["messages"][-1]
+            last_message = message
+        # Print and store only the last assistant message
+        if last_message is not None:
+            if hasattr(last_message, "content"):
+                print(
+                    f"\nAssistant: {getattr(last_message, 'content', str(last_message)).strip()}\n"
+                )
+                messages.append(
+                    ("assistant", getattr(last_message, "content", str(last_message)))
+                )
+            elif isinstance(last_message, tuple):
+                print(f"\nAssistant: {last_message}\n")
+            else:
+                print("\nAssistant:")
+                last_message.pretty_print()
+                print()
+
+
+if __name__ == "__main__":
+    chat()

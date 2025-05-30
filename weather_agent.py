@@ -26,9 +26,13 @@ class AgentState(TypedDict):
     messages: Annotated[Sequence[BaseMessage], add_messages]
 
 
+console = Console()
+
+
 @tool
 def get_weather(city: str) -> str:
     """Fetch the current weather for a given city using OpenWeatherMap API."""
+    console.print(f"\n[magenta]Fetching weather for {city}...[/magenta]")
     api_key = os.getenv("OPENWEATHER_API_KEY")
     if not api_key:
         return "OpenWeatherMap API key not found."
@@ -129,7 +133,7 @@ def print_stream(stream):
 
 
 def chat():
-    console = Console()
+
     console.print("\n[red]Type 'exit' to quit.[/red]\n")
     messages = []
     while True:

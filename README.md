@@ -12,6 +12,9 @@ LangGraph is a library for constructing stateful, composable, and extensible age
 - `hello_langgraph_2.ipynb`: Shows a basic calculator agent that performs arithmetic operations using a state graph.
 - `hello_langgraph_3.py`: Python script for a minimal calculator agent using a state graph and a single tool (addition).
 - `hello_langgraph_4.py`: Python script for a calculator agent supporting addition, subtraction, and multiplication, with a more advanced state graph and tool usage.
+
+## 🛠️ Scripts
+
 - `weather_agent.py`: Python script for a weather agent that fetches real-time weather data for any city using the OpenWeatherMap API and LangGraph. Includes a chat loop for interactive use and saves a graph visualization as `weather_agent.png`.
 
 

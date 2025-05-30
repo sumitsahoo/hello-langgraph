@@ -117,14 +117,15 @@ app = graph.compile()
 # Save the graph image to a file in the project root
 with open("weather_agent.png", "wb") as f:
     f.write(app.get_graph().draw_mermaid_png())
-print("Graph image saved as weather_agent.png in the project root.")
+
+console.print("\n[magenta]Weather Agent graph created successfully![/magenta]\n")
 
 
 def print_stream(stream):
     for s in stream:
         message = s["messages"][-1]
         if isinstance(message, tuple):
-            print(message)
+            console.print(f"\n[bold cyan]Assistant:[/bold cyan] {message}\n")
         else:
             message.pretty_print()
 

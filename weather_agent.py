@@ -129,13 +129,13 @@ def print_stream(stream):
 
 
 def chat():
-    print("Type 'exit' to quit.")
     console = Console()
+    console.print("\n[red]Type 'exit' to quit.[/red]\n")
     messages = []
     while True:
         user_input = console.input("[bold cyan]You:[/bold cyan] ")
         if user_input.strip().lower() == "exit":
-            console.print("[bold cyan]Exiting chat.[/bold cyan]")
+            console.print("\n[red]Exiting chat.[/red]\n")
             break
         messages.append(("user", user_input))
         stream = app.stream({"messages": messages}, stream_mode="values")

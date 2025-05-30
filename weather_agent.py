@@ -17,6 +17,7 @@ from langgraph.prebuilt import ToolNode
 import os
 import requests
 from requests import Session, exceptions
+from rich.console import Console
 
 load_dotenv()
 
@@ -110,9 +111,9 @@ graph.add_edge("tools", "weather_agent")
 app = graph.compile()
 
 # Save the graph image to a file in the project root
-with open("graph.png", "wb") as f:
+with open("weather_agent.png", "wb") as f:
     f.write(app.get_graph().draw_mermaid_png())
-print("Graph image saved as graph.png in the project root.")
+print("Graph image saved as weather_agent.png in the project root.")
 
 
 def print_stream(stream):
@@ -129,11 +130,12 @@ def print_stream(stream):
 
 def chat():
     print("Type 'exit' to quit.")
+    console = Console()
     messages = []
     while True:
-        user_input = input("You: ")
+        user_input = console.input("[bold cyan]You:[/bold cyan] ")
         if user_input.strip().lower() == "exit":
-            print("Exiting chat.")
+            console.print("[bold cyan]Exiting chat.[/bold cyan]")
             break
         messages.append(("user", user_input))
         stream = app.stream({"messages": messages}, stream_mode="values")
@@ -144,18 +146,18 @@ def chat():
         # Print and store only the last assistant message
         if last_message is not None:
             if hasattr(last_message, "content"):
-                print(
-                    f"\nAssistant: {getattr(last_message, 'content', str(last_message)).strip()}\n"
+                console.print(
+                    f"\n[bold green]Assistant:[/bold green] {getattr(last_message, 'content', str(last_message)).strip()}\n"
                 )
                 messages.append(
                     ("assistant", getattr(last_message, "content", str(last_message)))
                 )
             elif isinstance(last_message, tuple):
-                print(f"\nAssistant: {last_message}\n")
+                console.print(f"\n[bold green]Assistant:[/bold green] {last_message}\n")
             else:
-                print("\nAssistant:")
+                console.print("\n[bold green]Assistant:[/bold green]")
                 last_message.pretty_print()
-                print()
+                console.print()
 
 
 if __name__ == "__main__":

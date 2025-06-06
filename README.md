@@ -26,33 +26,39 @@ LangGraph is a library for constructing stateful, composable, and extensible age
 
 ## 📦 Dependency Management
 
-This project uses [Poetry](https://python-poetry.org/) for dependency management and packaging. Poetry ensures reproducible environments and easy management of dependencies.
+This project now uses [uv](https://github.com/astral-sh/uv) for dependency management and packaging. uv is a fast Python package manager and installer, providing reproducible environments and easy management of dependencies.
 
 ### 📥 Installing Dependencies
 
-1. Install Poetry if you haven't already:
+1. Install uv if you haven't already:
    ```sh
-   curl -sSL https://install.python-poetry.org | python3 -
+   pip install uv
    ```
 2. Install project dependencies:
    ```sh
-   poetry install
+   uv pip install -r requirements.txt
+   # or, if using pyproject.toml (recommended):
+   uv pip install -r uv.lock
    ```
+   > Note: The project uses `pyproject.toml` and `uv.lock` for dependency specification and locking.
 
 ### 🏕️ Activating the Environment
 
-To activate the virtual environment created by Poetry:
+uv does not manage virtual environments directly. You can use `python -m venv .venv` to create one, then activate it:
 ```sh
-poetry shell
+python -m venv .venv
+source .venv/bin/activate
 ```
+Then install dependencies as above.
 
 ## ▶️ Running the Notebooks
 
 1. Launch Jupyter Lab or Notebook:
    ```sh
-   poetry run jupyter lab
+   uv pip install jupyterlab  # if not already installed
+   jupyter lab
    # or
-   poetry run jupyter notebook
+   jupyter notebook
    ```
 2. Open the desired notebook and run the cells.
 

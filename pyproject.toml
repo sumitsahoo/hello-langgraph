@@ -1,27 +1,31 @@
-[tool.poetry]
+[project]
 name = "hello-langgraph"
 version = "1.0.0"
 description = "A test bed for LangGraph"
-authors = ["Sumit Sahoo <sumitsahoo1988@gmail.com>"]
-license = "MIT"
+authors = [{ name = "Sumit Sahoo", email = "sumitsahoo1988@gmail.com" }]
+requires-python = "~=3.13"
 readme = "README.md"
-package-mode = false
+license = "MIT"
+dependencies = [
+    "langgraph>=0.4.7,<0.5",
+    "dotenv>=0.9.9,<0.10",
+    "langchain-openai>=0.3.18,<0.4",
+    "requests>=2.32.3,<3",
+    "rich>=14.0.0,<15",
+]
 
-[tool.poetry.dependencies]
-python = "^3.13"
-langgraph = "^0.4.7"
-dotenv = "^0.9.9"
-langchain-openai = "^0.3.18"
-requests = "^2.32.3"
-rich = "^14.0.0"
+[dependency-groups]
+dev = [
+    "ipykernel>=6.29.5,<7",
+    "pyrefly>=0.17.0,<0.18",
+]
 
-[tool.poetry.group.dev.dependencies]
-ipykernel = "^6.29.5"
-pyrefly = "^0.17.0"
+[tool.uv]
+package = false
 
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
 [tool.pyrefly]
 python_interpreter = "./.venv/bin/python"

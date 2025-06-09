@@ -40,7 +40,9 @@ This project now uses [uv](https://github.com/astral-sh/uv) for dependency manag
    # or, if using pyproject.toml (recommended):
    uv pip install -r uv.lock
    ```
-   > Note: The project uses `pyproject.toml` and `uv.lock` for dependency specification and locking.
+   > Note: The project uses `pyproject.toml` and `uv.lock` for dependency specification and locking. 
+
+   > Note: If you are using `Poetry` and want to migrate to `uv` then use this command: `uvx migrate-to-uv`
 
 ### 🏕️ Activating the Environment
 

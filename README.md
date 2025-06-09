@@ -44,6 +44,13 @@ This project now uses [uv](https://github.com/astral-sh/uv) for dependency manag
 
    > Note: If you are using `Poetry` and want to migrate to `uv` then use this command: `uvx migrate-to-uv`
 
+### 📄 Generating requirements.txt
+
+To generate or update `requirements.txt` from your locked dependencies, run:
+```sh
+uv export --format requirements.txt --output-file requirements.txt
+```
+
 ### 🏕️ Activating the Environment
 
 uv does not manage virtual environments directly. You can use `python -m venv .venv` to create one, then activate it:
